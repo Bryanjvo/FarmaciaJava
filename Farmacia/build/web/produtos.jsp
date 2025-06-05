@@ -37,7 +37,9 @@
                     } else { 
                 %>
                     <li><a href="carrinho.jsp">Carrinho</a></li>
+                    <li><a href="pedidos.jsp">Pedidos</a></li>
                     <li><a href="perfil.jsp">Meu Perfil</a></li>
+                    <li><a href="logout">Logout</a></li>
                 <%
                     }
                 %>
@@ -59,7 +61,7 @@
                         <%-- <h3>ID: <%= produto.getId() %></h3> --%>
                         <h3>Nome: <%= produto.getNome() %></h3>
                         <p>Preço: R$<%= produto.getPreco() %></p>
-                        <p>Receita? <%= produto.isReceita() ? "Sim" : "Não" %></p>
+                        <p>Receita: <%= produto.isReceita() ? "Sim" : "Não" %></p>
                         <%-- Link para efetuar a compra/pedido do produto (ajuste o caminho conforme sua estrutura) --%>
                         <button class="comprarButton">
                             <a href="AdicionarCarrinho?idproduto=<%= produto.getId() %>&quantidade=1" class="comprarButton">Adicionar ao carrinho</a>
@@ -75,18 +77,13 @@
     <footer>
         <div class="footer-content">
             <ul class="autores">
-                <h3>Autores</h3>
-                <li>
-                    <img class="autoresImg" src="../design_&_layout/logotipo/github-mark.png">
-                    <a href="https://github.com/Bryanjvo">Bryan</a>
-                </li>
+                <h3>Autor</h3>
+                <li> <img class="autoresImg" src="assets/img/github-mark.png"> <a href="https://github.com/Bryanjvo">Bryan</a></li>
             </ul>
             <ul>
                 <h3>Contato</h3>
-                <li><img class="autoresImg" src="../design_&_layout/logotipo/telefone.png"> (61) 91234-5678</li>
-                <li><img class="autoresImg" src="../design_&_layout/logotipo/email.png">
-                    <a style="color: white;" href="mailto:#">farmacia@gmail.com</a>
-                </li>
+                <li> <img class="autoresImg" src="assets/img/telefone.png"> (61) 91234-5678</li>
+                <li> <img class="autoresImg" src="assets/img/email.png"> <a style="color: white;" href="mailto:#">drogabryan@gmail.com</a></li>
             </ul>
             <ul>
                 <h3>Endereço</h3>
@@ -96,8 +93,8 @@
             </ul>
             <ul>
                 <h3>Redes Sociais</h3>
-                <li><img class="autoresImg" src="../design_&_layout/logotipo/ig icon.png"> <a href="#">Instagram</a></li>
-                <li><img class="autoresImg" src="../design_&_layout/logotipo/whatsapp.png"> <a href="#">WhatsApp</a></li>
+                <li> <img class="autoresImg" src="assets/img/ig icon.png"> <a href="#">Instagram</a></li>
+                <li> <img class="autoresImg" src="assets/img/whatsapp.png"> <a href="#">WhatsApp</a></li>
             </ul>
         </div>
     </footer>

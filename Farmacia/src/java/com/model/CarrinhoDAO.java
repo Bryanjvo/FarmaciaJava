@@ -84,4 +84,57 @@ public class CarrinhoDAO extends DAO{
 
         return itens;
     }
+    
+    public void limparCarrinho(int idCliente) {
+        try {
+            abrirBanco();
+            String sql = "DELETE FROM carrinho WHERE id_cliente = ?";
+            pst = con.prepareStatement(sql);
+            pst.setInt(1, idCliente);
+            pst.executeUpdate();
+            fecharBanco();
+        } catch (Exception e) {
+            System.out.println("Erro ao limpar carrinho: " + e.getMessage());
+        }
+    }
+    
+    public void diminuirProdutoCarrinho(Carrinho carrinho){
+        try {
+            abrirBanco();
+            String selectSQL = "SELECT quantidade FROM carrinho WHERE id_cliente = ? AND id_produto = ?";
+            pst = con.prepareStatement(selectSQL);
+            pst.setInt(1, carrinho.getId_cliente());
+            pst.setInt(2, carrinho.getId_produto());
+            ResultSet rs = pst.executeQuery();
+            
+            if (rs.next()) {
+                int novaQuantidade = rs.getInt("quantidade") - carrinho.getQuantidade();
+                String updateSQL = "UPDATE carrinho SET quantidade = ? WHERE id_cliente = ? AND id_produto = ?";
+                pst = con.prepareStatement(updateSQL);
+                pst.setInt(1, novaQuantidade);
+                pst.setInt(2, carrinho.getId_cliente());
+                pst.setInt(3, carrinho.getId_produto());
+                pst.executeUpdate();
+            }
+            
+            fecharBanco();
+        } catch (Exception e) {
+            System.out.println("Erro ao diminuir do carrinho: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    public void excluirProdutoCarrinho(Carrinho carrinho) {
+        try {
+            abrirBanco();
+            String deleteSQL = "DELETE FROM carrinho WHERE id_cliente = ? AND id_produto = ?";
+            pst = con.prepareStatement(deleteSQL);
+            pst.setInt(1, carrinho.getId_cliente());
+            pst.setInt(2, carrinho.getId_produto());
+            pst.executeUpdate();
+            fecharBanco();
+        } catch (Exception e) {
+            System.out.println("Erro ao remover produto do carrinho: " + e.getMessage());
+        }
+    }
 }

@@ -31,9 +31,22 @@
             <ul>
                 <li><a href="index.jsp">Home</a></li>
                 <li><a href="produtos.jsp">Produtos</a></li>
-                <li><a href="login.jsp">Login</a></li>
-                <li><a href="cadcliente.jsp">Cadastro</a></li>
-                <li><a href="perfil.jsp">Meu Perfil</a></li>
+                <%-- Verifica se o usuário está logado, baseado em uma variável de sessão, por exemplo "nome" --%>
+                <%
+                    if (session.getAttribute("nome") == null) {
+                %>
+                    <li><a href="login.jsp">Login</a></li>
+                    <li><a href="cadcliente.jsp">Cadastro</a></li>
+                <%
+                    } else { 
+                %>
+                    <li><a href="carrinho.jsp">Carrinho</a></li>
+                    <li><a href="pedidos.jsp">Pedidos</a></li>
+                    <li><a href="perfil.jsp">Meu Perfil</a></li>
+                    <li><a href="logout">Logout</a></li>
+                <%
+                    }
+                %>
             </ul>
         </nav>
     </header>
@@ -53,10 +66,10 @@
                 <br>
                 <h4 class="opcoes">Opções</h4>
                 <br>
-                <a href="AlterarCliente.php?idex=<?php echo $_SESSION['id_usuario']; ?>">Alterar Conta</a>
-                <a href="ExcluirCliente.php?idex=<?php echo $_SESSION['id_usuario']; ?>">Excluir Conta</a>
-                <a href="CadCliente.php">Cadastrar Nova Conta</a>
-                <a href="ListarPedidos.php">Meus Pedidos</a>
+                <a href="AlterarCliente.jsp">Alterar Conta</a>
+                <a href="ExcluirCliente.jsp">Excluir Conta</a>
+                <a href="cadcliente.jsp">Cadastrar Nova Conta</a>
+                <a href="pedidos.jsp">Meus Pedidos</a>
             </div>
         </section>
     </main>
@@ -65,16 +78,12 @@
         <div class="footer-content">
             <ul class="autores">
                 <h3>Autor</h3>
-                <li><img class="autoresImg" src="../design_&_layout/logotipo/github-mark.png">
-                    <a href="https://github.com/Bryanjvo">Bryan</a>
-                </li>
+                <li> <img class="autoresImg" src="assets/img/github-mark.png"> <a href="https://github.com/Bryanjvo">Bryan</a></li>
             </ul>
             <ul>
                 <h3>Contato</h3>
-                <li><img class="autoresImg" src="../design_&_layout/logotipo/telefone.png"> (61) 91234-5678</li>
-                <li><img class="autoresImg" src="../design_&_layout/logotipo/email.png">
-                    <a style="color: white;" href="mailto:#">drogabryan@gmail.com</a>
-                </li>
+                <li> <img class="autoresImg" src="assets/img/telefone.png"> (61) 91234-5678</li>
+                <li> <img class="autoresImg" src="assets/img/email.png"> <a style="color: white;" href="mailto:#">drogabryan@gmail.com</a></li>
             </ul>
             <ul>
                 <h3>Endereço</h3>
@@ -84,8 +93,8 @@
             </ul>
             <ul>
                 <h3>Redes Sociais</h3>
-                <li><img class="autoresImg" src="../design_&_layout/logotipo/ig icon.png"> <a href="#">Instagram</a></li>
-                <li><img class="autoresImg" src="../design_&_layout/logotipo/whatsapp.png"> <a href="#">WhatsApp</a></li>
+                <li> <img class="autoresImg" src="assets/img/ig icon.png"> <a href="#">Instagram</a></li>
+                <li> <img class="autoresImg" src="assets/img/whatsapp.png"> <a href="#">WhatsApp</a></li>
             </ul>
         </div>
     </footer>

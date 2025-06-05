@@ -22,6 +22,7 @@ create table produtos (
 create table pedidos (
 	id int primary key auto_increment,
     data_pedido datetime default current_timestamp,
+    valor_total double,
     id_cliente int not null,
     foreign key (id_cliente) references clientes(id)
     ) Engine = InnoDB;
@@ -30,6 +31,7 @@ create table pedido_produto (
 	id_pedido int,
     id_produto int,
     quantidade int not null,
+    subtotal double,
     primary key(id_pedido, id_produto),
     foreign key(id_pedido) references pedidos(id),
     foreign key(id_produto) references produtos(id)
@@ -58,7 +60,10 @@ create table administradores (
     
 select * from clientes;
 select * from produtos;
+select * from pedidos;
+select * from pedido_produto;
 select * from carrinho;
+alter table pedido_produto add column subtotal double;
 alter table produtos add column imagem varchar(700);
 truncate table clientes;
 delete from clientes where id=3213123;
@@ -78,4 +83,16 @@ update produtos set imagem='https://th.bing.com/th/id/OIP.9IoA1fpFKXRIZZFU6MaFaQ
 delete from produtos where id=2;
 SELECT c.id_produto, c.quantidade, p.nome, p.preco, p.imagem, p.receita, p.estoque 
 FROM carrinho c INNER JOIN produtos p ON c.id_produto = p.id WHERE c.id_cliente = 1;
+
+alter table pedidos add column valor_total double;
+
+SELECT p.id AS pedido_id, p.data_pedido, p.valor_total,
+                   pr.nome AS nome_produto, pp.quantidade, pp.subtotal
+            FROM pedidos p
+            JOIN pedido_produto pp ON p.id = pp.id_pedido
+            JOIN produtos pr ON pp.id_produto = pr.id
+            WHERE p.id_cliente = 3
+            ORDER BY p.id DESC;
+
+
 

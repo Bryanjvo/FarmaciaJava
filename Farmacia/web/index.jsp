@@ -34,6 +34,8 @@
                 <li><a href="login.jsp">LoginCliente</a></li>
                 <li><a href="view/viewFuncionario/LoginFuncionario.jsp">LoginFuncionario</a></li>
             <% } else { %>
+                <li><a href="carrinho.jsp">Carrinho</a></li>
+                <li><a href="pedidos.jsp">Pedidos</a></li>
                 <li><a href="perfil.jsp">Meu Perfil</a></li>
                 <li><a href="logout">Logout</a></li>
             <% } %>
