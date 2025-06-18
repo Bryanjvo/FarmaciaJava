@@ -67,7 +67,6 @@
                 <h4 class="opcoes">Opções</h4>
                 <br>
                 <a href="AlterarCliente.jsp">Alterar Conta</a>
-                <a href="ExcluirCliente.jsp">Excluir Conta</a>
                 <a href="cadcliente.jsp">Cadastrar Nova Conta</a>
                 <a href="pedidos.jsp">Meus Pedidos</a>
             </div>
