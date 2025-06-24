@@ -23,6 +23,7 @@ public class ServletPagamento extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         // 1. Recupera o ID do cliente
         HttpSession session = request.getSession(false);
         Integer idCliente = (session != null) 
@@ -46,6 +47,17 @@ public class ServletPagamento extends HttpServlet {
             return;
         }
 
+        // ✅ 2.1. Lê valor do frete vindo da página
+        String valorFreteStr = request.getParameter("frete");
+        double valorFrete = 0.0;
+        if (valorFreteStr != null && !valorFreteStr.trim().isEmpty()) {
+            try {
+                valorFrete = Double.parseDouble(valorFreteStr.replace(",", ".")); // Trata R$ 12,50 como 12.50
+            } catch (NumberFormatException e) {
+                valorFrete = 0.0; // fallback em caso de erro
+            }
+        }
+
         // 3. Monta o JSON dinamicamente
         JsonArray itemsArray = new JsonArray();
         for (ItemCarrinho item : lista) {
@@ -56,15 +68,26 @@ public class ServletPagamento extends HttpServlet {
             obj.addProperty("unit_price", item.getProduto().getPreco());
             itemsArray.add(obj);
         }
+
+        // ✅ 3.1. Adiciona o frete como item no JSON
+        if (valorFrete > 0) {
+            JsonObject freteObj = new JsonObject();
+            freteObj.addProperty("title", "Frete");
+            freteObj.addProperty("quantity", 1);
+            freteObj.addProperty("currency_id", "BRL");
+            freteObj.addProperty("unit_price", valorFrete);
+            itemsArray.add(freteObj);
+        }
+
         JsonObject preference = new JsonObject();
         preference.add("items", itemsArray);
         preference.add("back_urls", new JsonParser().parse("""
-  {
-    "success": "https://d62e-2804-14c-65c0-66a3-cc6e-656-e86a-3203.ngrok-free.app/Farmacia/confirmacao",
-    "failure": "https://d62e-2804-14c-65c0-66a3-cc6e-656-e86a-3203.ngrok-free.app/Farmacia/carrinho.jsp",
-    "pending": "https://d62e-2804-14c-65c0-66a3-cc6e-656-e86a-3203.ngrok-free.app/Farmacia/carrinho.jsp"
-  }
-""").getAsJsonObject());
+            {
+              "success": "https://b64b-2804-14c-65c0-66a3-a4e0-a024-25cc-32ee.ngrok-free.app/Farmacia/confirmacao",
+              "failure": "https://b64b-2804-14c-65c0-66a3-a4e0-a024-25cc-32ee.ngrok-free.app/Farmacia/carrinho.jsp",
+              "pending": "https://b64b-2804-14c-65c0-66a3-a4e0-a024-25cc-32ee.ngrok-free.app/Farmacia/carrinho.jsp"
+            }
+        """).getAsJsonObject());
         preference.addProperty("auto_return", "approved");
 
         // 4. Configura client “trust-all” (ambiente de sandbox ou testes)

@@ -134,9 +134,24 @@
 
                 </section>
                 <section class="total-carrinho">
-                    <h2>Total da Compra: R$<%= String.format("%.2f", total) %></h2>
+                    <h2>Subtotal da Compra: R$<%= String.format("%.2f", total) %></h2>
+                    <h2>Frete: R$<%= valorFrete %></h2>
+                    <%
+    double valorFreteDouble = 0.0;
+    if (valorFrete != null && !valorFrete.trim().isEmpty()) {
+        try {
+            valorFreteDouble = Double.parseDouble(valorFrete.replace(",", "."));
+        } catch (NumberFormatException e) {
+            valorFreteDouble = 0.0;
+        }
+    }
+    double totalCompra = valorFreteDouble + total;
+                    %>
+                    <h2>Total da compra: R$ <%= String.format("%.2f", totalCompra) %></h2>
+
 
                     <form action="pagar" method="post">
+                        <input type="hidden" name="frete" value="<%= valorFrete %>">
                         <button type="submit" class="finalizarButton">
                             Finalizar Compra
                         </button>
