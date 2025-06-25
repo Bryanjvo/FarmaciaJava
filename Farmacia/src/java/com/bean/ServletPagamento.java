@@ -83,9 +83,9 @@ public class ServletPagamento extends HttpServlet {
         preference.add("items", itemsArray);
         preference.add("back_urls", new JsonParser().parse("""
             {
-              "success": "https://b64b-2804-14c-65c0-66a3-a4e0-a024-25cc-32ee.ngrok-free.app/Farmacia/confirmacao",
-              "failure": "https://b64b-2804-14c-65c0-66a3-a4e0-a024-25cc-32ee.ngrok-free.app/Farmacia/carrinho.jsp",
-              "pending": "https://b64b-2804-14c-65c0-66a3-a4e0-a024-25cc-32ee.ngrok-free.app/Farmacia/carrinho.jsp"
+              "success": "https://3cf5-2804-14c-65c0-66a3-88ce-5018-d2a2-452c.ngrok-free.app/Farmacia/confirmacao",
+              "failure": "https://3cf5-2804-14c-65c0-66a3-88ce-5018-d2a2-452c.ngrok-free.app/Farmacia/carrinho.jsp",
+              "pending": "https://3cf5-2804-14c-65c0-66a3-88ce-5018-d2a2-452c.ngrok-free.app/Farmacia/carrinho.jsp"
             }
         """).getAsJsonObject());
         preference.addProperty("auto_return", "approved");

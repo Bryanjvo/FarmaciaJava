@@ -1,5 +1,6 @@
 package com.bean;
 
+import com.controller.Frete;
 import com.controller.ResultadoFrete;
 import okhttp3.*;
 import jakarta.servlet.annotation.WebServlet;
@@ -65,9 +66,9 @@ public class ServletCalcularFrete extends HttpServlet {
             sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
 
             client = new OkHttpClient.Builder()
-                .sslSocketFactory(sslContext.getSocketFactory(), (X509TrustManager) trustAllCerts[0])
-                .hostnameVerifier((hostname, session) -> true) // Aceita qualquer hostname
-                .build();
+                    .sslSocketFactory(sslContext.getSocketFactory(), (X509TrustManager) trustAllCerts[0])
+                    .hostnameVerifier((hostname, session) -> true) // Aceita qualquer hostname
+                    .build();
 
         } catch (Exception e) {
             System.err.println("Erro ao configurar SSL: " + e.getMessage());
@@ -111,7 +112,8 @@ public class ServletCalcularFrete extends HttpServlet {
                 com.google.gson.JsonElement jsonElement = JsonParser.parseString(json);
 
                 if (jsonElement.isJsonArray()) {
-                    Type listType = new TypeToken<List<ResultadoFrete>>() {}.getType();
+                    Type listType = new TypeToken<List<ResultadoFrete>>() {
+                    }.getType();
                     List<ResultadoFrete> fretes = gson.fromJson(json, listType);
 
                     // Lógica para encontrar o frete mais barato válido
@@ -131,9 +133,15 @@ public class ServletCalcularFrete extends HttpServlet {
                         }
                     }
 
+                    Frete frete = new Frete();
                     if (freteMaisBarato != null) {
                         request.setAttribute("valorFrete", String.format("%.2f", Double.parseDouble(freteMaisBarato.getPrice())));
                         request.setAttribute("prazoEntrega", freteMaisBarato.getDelivery_time());
+                        frete.setPreco(Double.valueOf(freteMaisBarato.getPrice()));
+                        // Salva na sessão também:
+                        HttpSession session = request.getSession();
+                        session.setAttribute("fretePreco", String.format("%.2f", Double.parseDouble(freteMaisBarato.getPrice())));
+                        session.setAttribute("fretePrazo", frete.getPrazoEntrega());
                         System.out.println("Frete mais barato encontrado: " + freteMaisBarato.getName() + " - R$ " + freteMaisBarato.getPrice() + " - " + freteMaisBarato.getDelivery_time() + " dias.");
                     } else {
                         // Se todos os serviços retornaram erro ou não há serviços válidos
@@ -149,7 +157,7 @@ public class ServletCalcularFrete extends HttpServlet {
                     if (errorObject.has("message")) {
                         errorMessage = errorObject.get("message").getAsString();
                     } else if (errorObject.has("error")) {
-                         errorMessage = errorObject.get("error").getAsString();
+                        errorMessage = errorObject.get("error").getAsString();
                     }
                     request.setAttribute("valorFrete", "Erro: " + errorMessage);
                     request.setAttribute("prazoEntrega", "Não calculado");

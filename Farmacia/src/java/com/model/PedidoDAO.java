@@ -2,16 +2,18 @@ package com.model;
 
 import com.controller.ItemPedido;
 import com.controller.Pedido;
+import com.controller.Frete;
 import java.sql.*;
 import java.util.*;
 
 public class PedidoDAO extends DAO {
-    public int criarPedido(int idCliente, double valor_total) throws SQLException, Exception {
+    public int criarPedido(int idCliente, double valor_total, double frete) throws SQLException, Exception {
         abrirBanco();
-        String sql = "INSERT INTO pedidos (id_cliente, data_pedido, valor_total) VALUES (?, NOW(), ?)";
+        String sql = "INSERT INTO pedidos (id_cliente, data_pedido, valor_total, frete) VALUES (?, NOW(), ?, ?)";
         pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         pst.setInt(1, idCliente);
         pst.setDouble(2, valor_total);
+        pst.setDouble(3, frete);
         pst.executeUpdate();
         ResultSet rs = pst.getGeneratedKeys();
         int idPedido = 0;
@@ -25,7 +27,7 @@ public class PedidoDAO extends DAO {
         abrirBanco();
 
         String sql = """
-            SELECT p.id AS pedido_id, p.data_pedido, p.valor_total,
+            SELECT p.id AS pedido_id, p.data_pedido, p.valor_total, p.frete,
                    pr.nome AS nome_produto, pp.quantidade, pp.subtotal
             FROM pedidos p
             JOIN pedido_produto pp ON p.id = pp.id_pedido
@@ -49,6 +51,7 @@ public class PedidoDAO extends DAO {
                 pedido.setId(idPedido);
                 pedido.setDataPedido(rs.getTimestamp("data_pedido"));
                 pedido.setValorTotal(rs.getDouble("valor_total"));
+                pedido.setFrete(rs.getDouble("frete"));
                 mapaPedidos.put(idPedido, pedido);
             }
 
