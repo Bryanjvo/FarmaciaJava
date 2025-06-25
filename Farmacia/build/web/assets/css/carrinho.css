@@ -253,3 +253,29 @@ button:hover, .comprarButton:hover, .adicionarButton:hover, .alterarButton:hover
 .finalizarButton:hover {
     background-color: #2C3333;
 }
+
+.frete-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+}
+
+.frete-form form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.frete-form input[type="text"] {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    width: 200px;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+    outline-color: #395B64;
+    background-color: #fff;
+}

@@ -21,7 +21,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DrogaBryan</title>
-    <link rel="icon" type="image/x-icon" href="../design_&_layout/logotipo/drogabryan.png">
+    <link rel="icon" type="image/x-icon" href="assets/img/drogabryan.png">
     <link rel="stylesheet" href="assets/css/perfil.css">
 </head>
 
@@ -66,7 +66,6 @@
                 <br>
                 <h4 class="opcoes">Opções</h4>
                 <br>
-                <a href="AlterarCliente.jsp">Alterar Conta</a>
                 <a href="cadcliente.jsp">Cadastrar Nova Conta</a>
                 <a href="pedidos.jsp">Meus Pedidos</a>
             </div>

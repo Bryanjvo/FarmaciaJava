@@ -31,8 +31,8 @@
             <% } %>
 
             <% if (nome == null) { %>
-                <li><a href="login.jsp">LoginCliente</a></li>
-                <li><a href="view/viewFuncionario/LoginFuncionario.jsp">LoginFuncionario</a></li>
+                <li><a href="login.jsp">Login</a></li>
+                <li><a href="cadcliente.jsp">Cadastre-se</a></li>
             <% } else { %>
                 <li><a href="carrinho.jsp">Carrinho</a></li>
                 <li><a href="pedidos.jsp">Pedidos</a></li>
