@@ -13,6 +13,7 @@ public class Pedido {
     private Date dataPedido;
     private double valorTotal;
     private List<ItemPedido> itens = new ArrayList<>();
+    private double frete;
 
     // Getters e setters
     public void adicionarItem(ItemPedido item) {
@@ -50,6 +51,16 @@ public class Pedido {
     public void setItens(List<ItemPedido> itens) {
         this.itens = itens;
     }
+
+    public double getFrete() {
+        return frete;
+    }
+
+    public void setFrete(double frete) {
+        this.frete = frete;
+    }
+    
+    
     
 }
 

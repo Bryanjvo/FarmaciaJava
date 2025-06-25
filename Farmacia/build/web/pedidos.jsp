@@ -62,6 +62,9 @@
                                     Subtotal: R$<%= String.format("%.2f", item.getSubtotal()) %>
                                 </p>
                             <% } %>
+                        <% if(pedido.getFrete() > 0.0){ %>
+                        <p><strong>Frete: </strong>R$<%= String.format("%.2f",pedido.getFrete()) %></p>   
+                        <% } %>
                         </div>
                         <p><strong>Total do Pedido:</strong> R$<%= String.format("%.2f", pedido.getValorTotal()) %></p>
                     </div>
