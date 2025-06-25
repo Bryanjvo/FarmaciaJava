@@ -6,7 +6,7 @@
    
     <title>Cadastro</title>
     <link rel="stylesheet" href="assets/css/cadcliente.css">
-    <link rel="icon" type="image/x-icon" href="../design_&_layout/logotipo/drogabryan.png">
+    <link rel="icon" type="image/x-icon" href="assets/img/drogabryan.png">
 </head>
 
 <body>

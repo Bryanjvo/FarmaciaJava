@@ -34,7 +34,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>DrogaBryan - Carrinho de Compras</title>
         <link rel="stylesheet" href="assets/css/carrinho.css">
-        <link rel="icon" type="image/x-icon" href="../design_&_layout/logotipo/drogabryan.png">
+        <link rel="icon" type="image/x-icon" href="assets/img/drogabryan.png">
     </head>
     <body>
         <header>
@@ -101,10 +101,12 @@
                     <%
                         }
                     %>
-                    <form action="calcular-frete" method="post">
-                        <input type="text" name="cep" placeholder="Digite seu CEP" required>
-                        <button type="submit">Calcular Frete</button>
-                    </form>
+                    <div class="frete-form">
+                        <form action="calcular-frete" method="post">
+                            <input type="text" name="cep" placeholder="Digite seu CEP" required>
+                            <button type="submit">Calcular Frete</button>
+                        </form>
+                    </div>
 
                     <%
                         String valorFrete = (String) request.getAttribute("valorFrete");
@@ -135,7 +137,9 @@
                 </section>
                 <section class="total-carrinho">
                     <h2>Subtotal da Compra: R$<%= String.format("%.2f", total) %></h2>
+                    <% if (valorFrete != null && !valorFrete.isEmpty() && prazoEntregaObj != null) { %>
                     <h2>Frete: R$<%= valorFrete %></h2>
+                       <% } %>
                     <%
     double valorFreteDouble = 0.0;
     if (valorFrete != null && !valorFrete.trim().isEmpty()) {
@@ -147,15 +151,19 @@
     }
     double totalCompra = valorFreteDouble + total;
                     %>
+                    <% if (valorFrete != null && !valorFrete.isEmpty() && prazoEntregaObj != null) { %>
                     <h2>Total da compra: R$ <%= String.format("%.2f", totalCompra) %></h2>
 
-
+                    
                     <form action="pagar" method="post">
                         <input type="hidden" name="frete" value="<%= valorFrete %>">
                         <button type="submit" class="finalizarButton">
                             Finalizar Compra
                         </button>
                     </form>
+                     <% } else { %>
+                     <h2>Calcule o frete para finalizar a compra.</h2>
+                     <% } %>
                 </section>
 
             </div>
