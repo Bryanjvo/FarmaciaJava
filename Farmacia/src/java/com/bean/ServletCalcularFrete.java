@@ -141,7 +141,7 @@ public class ServletCalcularFrete extends HttpServlet {
                         // Salva na sessão também:
                         HttpSession session = request.getSession();
                         session.setAttribute("fretePreco", String.format("%.2f", Double.parseDouble(freteMaisBarato.getPrice())));
-                        session.setAttribute("fretePrazo", frete.getPrazoEntrega());
+                        session.setAttribute("fretePrazo", freteMaisBarato.getDelivery_time());
                         System.out.println("Frete mais barato encontrado: " + freteMaisBarato.getName() + " - R$ " + freteMaisBarato.getPrice() + " - " + freteMaisBarato.getDelivery_time() + " dias.");
                     } else {
                         // Se todos os serviços retornaram erro ou não há serviços válidos
