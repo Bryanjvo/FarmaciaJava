@@ -24,6 +24,8 @@ create table pedidos (
     data_pedido datetime default current_timestamp,
     valor_total double,
     id_cliente int not null,
+    frete double,
+    prazoEntrega int,
     foreign key (id_cliente) references clientes(id)
     ) Engine = InnoDB;
     
@@ -65,7 +67,6 @@ select * from pedido_produto;
 select * from carrinho;
 alter table pedido_produto add column subtotal double;
 alter table produtos add column imagem varchar(700);
-truncate table clientes;
 delete from clientes where id=3213123;
 
 INSERT INTO produtos (id, nome, preco, estoque, receita) 
@@ -93,6 +94,15 @@ SELECT p.id AS pedido_id, p.data_pedido, p.valor_total,
             JOIN produtos pr ON pp.id_produto = pr.id
             WHERE p.id_cliente = 3
             ORDER BY p.id DESC;
+            
+alter table pedidos add column frete double;
 
+SELECT p.id AS pedido_id, p.data_pedido, p.valor_total, p.frete,
+                   pr.nome AS nome_produto, pp.quantidade, pp.subtotal
+            FROM pedidos p
+            JOIN pedido_produto pp ON p.id = pp.id_pedido
+            JOIN produtos pr ON pp.id_produto = pr.id
+            WHERE p.id_cliente = 1
+            ORDER BY p.id DESC;
 
-
+alter table pedidos add column prazoEntrega int;
