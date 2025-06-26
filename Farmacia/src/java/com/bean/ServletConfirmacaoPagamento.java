@@ -44,6 +44,8 @@ public class ServletConfirmacaoPagamento extends HttpServlet {
                 fretePreco = 0.0; // fallback se o valor não for um número válido
             }
         }
+        
+        int fretePrazo = (Integer) session.getAttribute("fretePrazo");
 
         // 3️⃣ Busca itens do carrinho
         CarrinhoDAO carrinhoDAO = new CarrinhoDAO();
@@ -65,7 +67,7 @@ public class ServletConfirmacaoPagamento extends HttpServlet {
                 double subtotal = item.getSubtotal();
                 total += subtotal;
             }
-            idPedido = pedidoDAO.criarPedido(idCliente, total+fretePreco, fretePreco);
+            idPedido = pedidoDAO.criarPedido(idCliente, total+fretePreco, fretePreco, fretePrazo);
 
             // 5️⃣ Insere itens em pedido_produto
             PedidoProdutoDAO ppDAO = new PedidoProdutoDAO();

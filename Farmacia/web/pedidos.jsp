@@ -54,6 +54,9 @@
                     <div style="text-align: left;">
                         <h3>Pedido #<%= pedido.getId() %></h3>
                         <p><strong>Data:</strong> <%= pedido.getDataPedido() %></p>
+                        <% if(pedido.getPrazoEntrega() > 0){ %>
+                        <p><strong>Prazo de entrega:</strong> <%= pedido.getPrazoEntrega() %> dias</p>
+                            <% } %>
                         <div style="margin-top: 10px;">
                             <% for (ItemPedido item : pedido.getItens()) { %>
                                 <p>

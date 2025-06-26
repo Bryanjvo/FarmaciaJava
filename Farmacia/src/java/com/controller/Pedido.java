@@ -14,6 +14,7 @@ public class Pedido {
     private double valorTotal;
     private List<ItemPedido> itens = new ArrayList<>();
     private double frete;
+    private int prazoEntrega;
 
     // Getters e setters
     public void adicionarItem(ItemPedido item) {
@@ -59,6 +60,15 @@ public class Pedido {
     public void setFrete(double frete) {
         this.frete = frete;
     }
+
+    public int getPrazoEntrega() {
+        return prazoEntrega;
+    }
+
+    public void setPrazoEntrega(int prazoEntrega) {
+        this.prazoEntrega = prazoEntrega;
+    }
+    
     
     
     
